@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.expensetracker.expensetracker.services.ExportPdf;
+
 import com.expensetracker.expensetracker.models.Order;
 
 import com.expensetracker.expensetracker.services.CustomerreportService;
@@ -111,19 +111,5 @@ public class ExpensetrackerApplication {
 	       jreportassetService.exportJasperReport(response);
 	    }
 	
-	 @GetMapping(value = "/exportpdf", produces = MediaType.APPLICATION_PDF_VALUE)
-		public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
-
-			List<Order> allEmployees =  orderrepository.findAll();
-
-			ByteArrayInputStream bis = ExportPdf.employeesReport(allEmployees);
-
-			HttpHeaders headers = new HttpHeaders();
-
-			headers.add("Content-Disposition", "attachment;filename=Ordersearch.pdf");
-
-			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-					.body(new InputStreamResource(bis));
-		}
-
+	
 }
