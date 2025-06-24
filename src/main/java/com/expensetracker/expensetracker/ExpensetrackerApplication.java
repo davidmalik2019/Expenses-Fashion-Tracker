@@ -19,12 +19,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.expensetracker.expensetracker.services.ExportPdf;
 import com.expensetracker.expensetracker.models.Order;
 
 import com.expensetracker.expensetracker.services.CustomerreportService;
 import com.expensetracker.expensetracker.services.JReportorderService;
 import com.expensetracker.expensetracker.services.JReportService;
+import com.expensetracker.expensetracker.services.ReportService;
+import com.expensetracker.expensetracker.services.ReportexcelService;
+import com.expensetracker.expensetracker.services.ReportassetService;
 
 import com.expensetracker.expensetracker.services.JreportassetService;
 import com.expensetracker.expensetracker.services.OrderRepository;
@@ -42,6 +45,14 @@ public class ExpensetrackerApplication {
 	@Autowired
     private JReportorderService jreportorderService;
 	
+	@Autowired
+    private ReportService repoService;
+	
+	@Autowired
+    private ReportexcelService repoexcelService;
+	
+	@Autowired
+    private ReportassetService assetrepoService;
 	
 	
 	@Autowired
@@ -111,5 +122,60 @@ public class ExpensetrackerApplication {
 	       jreportassetService.exportJasperReport(response);
 	    }
 	
-	
+	 @GetMapping(value = "/exportpdf", produces = MediaType.APPLICATION_PDF_VALUE)
+		public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
+
+			List<Order> allEmployees =  orderrepository.findAll();
+
+			ByteArrayInputStream bis = ExportPdf.employeesReport(allEmployees);
+
+			HttpHeaders headers = new HttpHeaders();
+
+			headers.add("Content-Disposition", "attachment;filename=Ordersearch.pdf");
+
+			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+					.body(new InputStreamResource(bis));
+		}
+	 @GetMapping("/excel")
+		public void generateExcelReport(HttpServletResponse response) throws Exception{
+			
+			response.setContentType("application/octet-stream");
+			
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment;filename=order.xls";
+
+			response.setHeader(headerKey, headerValue);
+			
+			repoService.generateExcel(response);
+			
+			response.flushBuffer();
+		}
+	 @GetMapping("/customerexcel")
+		public void generateCustomerExcelReport(HttpServletResponse response) throws Exception{
+			
+			response.setContentType("application/octet-stream");
+			
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment;filename=Customer.xls";
+
+			response.setHeader(headerKey, headerValue);
+			
+			repoexcelService.generateExcel(response);
+			
+			response.flushBuffer();
+		}
+	 @GetMapping("/assetexcel")
+		public void generateassetExcelReport(HttpServletResponse response) throws Exception{
+			
+			response.setContentType("application/octet-stream");
+			
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment;filename=Asset.xls";
+
+			response.setHeader(headerKey, headerValue);
+			
+			assetrepoService.generateExcel(response);
+			
+			response.flushBuffer();
+		}
 }
