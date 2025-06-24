@@ -33,7 +33,7 @@ public class JReportorderService {
     public void exportJasperReport(HttpServletResponse response) throws JRException, IOException {
         List<Order> order = orderrrepository.findAll();
         //Get file and compile it
-        File file = ResourceUtils.getFile("classpath:orders.jrxml");
+        File file = ResourceUtils.getFile("classpath:order.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(order);
         Map<String, Object> parameters = new HashMap<>();
