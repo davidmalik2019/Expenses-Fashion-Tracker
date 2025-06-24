@@ -10,7 +10,8 @@
     </field>
     <field name="amount" class="java.lang.Double">
     </field>
-    
+	<field name="customer.phone" class="java.lang.String">
+    </field>
     <background>
         <band/>
     </background>
@@ -31,12 +32,12 @@
                         <font size="14" isBold="false"/>
                     </textElement>
                     <text><![CDATA[Orders Reports]]></text>
-                </staticText>
-                <image>
+                     </staticText>
+                    <image>
 					<reportElement x="300" y="16" width="50" height="50" uuid="977bac49-afdc-45de-a5b3-76683516bd5c"/>
 					<imageExpression><![CDATA["images/fis.png"]]></imageExpression>
 				</image>
-            </frame>
+              </frame>
         </band>
     </title>
     <pageHeader>
@@ -57,13 +58,13 @@
                 <text><![CDATA[Id]]></text>
             </staticText>
             <staticText>
-                <reportElement mode="Opaque" x="111" y="0" width="118" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e9b64414-ad92-4257-a8f2-63a23c460255">
+                <reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e9b64414-ad92-4257-a8f2-63a23c460255">
                     <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="372fc4a5-58e8-4f68-9b0b-b8c92b4521d4"/>
                 </reportElement>
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Customer_Name]]></text>
+                <text><![CDATA[Name]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="12ce83f4-fe29-45f6-b1d5-5e016771ec1b">
@@ -72,7 +73,7 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Description]]></text>
+                <text><![CDATA[description]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e2a0186b-afad-426b-b9f2-2152394df140">
@@ -81,9 +82,17 @@
                 <textElement textAlignment="Center">
                     <font size="14" isBold="true"/>
                 </textElement>
-                <text><![CDATA[Amount]]></text>
+                <text><![CDATA[amount]]></text>
             </staticText>
-           
+            <staticText>
+                <reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6d3e02fc-d8db-485a-96c9-54fa46d8a0ef">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95c0a1aa-91d9-473d-a271-b59d6dea0342"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[phone]]></text>
+            </staticText>
         </band>
     </columnHeader>
     <detail>
@@ -127,7 +136,15 @@
                 </textElement>
                 <textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
             </textField>
-            
+            <textField isStretchWithOverflow="true">
+                <reportElement x="444" y="0" width="111" height="20" uuid="f6b932f3-4a67-4720-9e27-53a9da43dedc">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95c0a1aa-91d9-473d-a271-b59d6dea0342"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{customer.phone}]]></textFieldExpression>
+            </textField>
         </band>
     </detail>
     <columnFooter>
