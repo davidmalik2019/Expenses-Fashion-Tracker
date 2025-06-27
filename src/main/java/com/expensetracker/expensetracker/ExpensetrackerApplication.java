@@ -122,20 +122,7 @@ public class ExpensetrackerApplication {
 	       jreportassetService.exportJasperReport(response);
 	    }
 	
-	 @GetMapping(value = "/exportpdf", produces = MediaType.APPLICATION_PDF_VALUE)
-		public ResponseEntity<InputStreamResource> employeeReports(HttpServletResponse response) throws IOException {
-
-			List<Order> allEmployees =  orderrepository.findAll();
-
-			ByteArrayInputStream bis = ExportPdf.employeesReport(allEmployees);
-
-			HttpHeaders headers = new HttpHeaders();
-
-			headers.add("Content-Disposition", "attachment;filename=Ordersearch.pdf");
-
-			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-					.body(new InputStreamResource(bis));
-		}
+	
 	 @GetMapping("/excel")
 		public void generateExcelReport(HttpServletResponse response) throws Exception{
 			
